@@ -272,7 +272,6 @@ function $cloneContentsImpl(
       range,
       nodeMap,
     );
-
     return {nodeMap: Array.from(nodeMap.entries()), range};
   } else if ($isGridSelection(selection)) {
     const nodeMap = selection.getNodes().map((node) => {
@@ -280,7 +279,6 @@ function $cloneContentsImpl(
       const clone = $cloneWithProperties<LexicalNode>(node);
       return [nodeKey, clone];
     });
-
     return {nodeMap, range: [selection.gridKey]};
   }
 
