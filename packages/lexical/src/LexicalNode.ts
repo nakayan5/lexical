@@ -8,7 +8,7 @@
  */
 
 import type {EditorConfig, LexicalEditor} from './LexicalEditor';
-import type {RangeSelection} from './LexicalSelection';
+import type {RangeSelection} from './LexicalSelection.ts';
 
 import invariant from 'shared/invariant';
 
@@ -109,7 +109,7 @@ export function removeNode(
   }
 }
 
-export function $getNodeByKeyOrThrow<N: LexicalNode>(key: NodeKey): N {
+export function $getNodeByKeyOrThrow<N = LexicalNode>(key: NodeKey): N {
   const node = $getNodeByKey<N>(key);
   if (node === null) {
     invariant(
@@ -122,8 +122,8 @@ export function $getNodeByKeyOrThrow<N: LexicalNode>(key: NodeKey): N {
 }
 
 export type DOMConversion = {
-  conversion: DOMConversionFn,
-  priority: 0 | 1 | 2 | 3 | 4,
+  conversion: DOMConversionFn;
+  priority: 0 | 1 | 2 | 3 | 4;
 };
 export type DOMConversionFn = (
   element: Node,
@@ -133,17 +133,17 @@ export type DOMChildConversion = (
   lexicalNode: LexicalNode,
 ) => LexicalNode | null | void;
 export type DOMConversionMap = {
-  [NodeName]: (node: Node) => DOMConversion | null,
+  [NodeName]: (node: Node) => DOMConversion | null;
 };
 type NodeName = string;
 export type DOMConversionOutput = {
-  after?: (childLexicalNodes: Array<LexicalNode>) => Array<LexicalNode>,
-  forChild?: DOMChildConversion,
-  node: LexicalNode | null,
+  after?: (childLexicalNodes: Array<LexicalNode>) => Array<LexicalNode>;
+  forChild?: DOMChildConversion;
+  node: LexicalNode | null;
 };
 export type DOMExportOutput = {
-  after?: (generatedElement: ?HTMLElement) => ?HTMLElement,
-  element?: HTMLElement | null,
+  after?: (generatedElement: ?HTMLElement) => ?HTMLElement;
+  element?: HTMLElement | null;
 };
 export type NodeKey = string;
 
@@ -582,12 +582,7 @@ export class LexicalNode {
     invariant(false, 'createDOM: base method not extended');
   }
 
-  updateDOM(
-    // $FlowFixMe: TODO
-    prevNode: any,
-    dom: HTMLElement,
-    config: EditorConfig,
-  ): boolean {
+  updateDOM(prevNode: any, dom: HTMLElement, config: EditorConfig): boolean {
     invariant(false, 'updateDOM: base method not extended');
   }
 

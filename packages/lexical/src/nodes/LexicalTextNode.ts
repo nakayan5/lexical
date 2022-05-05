@@ -66,7 +66,7 @@ export type TextFormatType =
 
 export type TextModeType = 'normal' | 'token' | 'segmented' | 'inert';
 
-export type TextMark = {end: null | number, id: string, start: null | number};
+export type TextMark = {end: null | number; id: string; start: null | number};
 
 export type TextMarks = Array<TextMark>;
 
@@ -451,6 +451,7 @@ export class TextNode extends LexicalNode {
   selectionTransform(
     prevSelection: null | RangeSelection | NodeSelection | GridSelection,
     nextSelection: RangeSelection,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
   ): void {}
 
   setFormat(format: number): this {
@@ -826,6 +827,6 @@ export function $createTextNode(text?: string = ''): TextNode {
   return new TextNode(text);
 }
 
-export function $isTextNode(node: ?LexicalNode): boolean %checks {
+export function $isTextNode(node: ?LexicalNode): node is TextNode {
   return node instanceof TextNode;
 }

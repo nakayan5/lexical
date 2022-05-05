@@ -44,6 +44,6 @@ export class DecoratorNode extends LexicalNode {
   }
 }
 
-export function $isDecoratorNode(node: ?LexicalNode): boolean %checks {
+export function $isDecoratorNode(node: ?LexicalNode): node is DecoratorNode {
   return node instanceof DecoratorNode;
 }

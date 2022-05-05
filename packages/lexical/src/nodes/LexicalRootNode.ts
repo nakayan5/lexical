@@ -60,7 +60,7 @@ export class RootNode extends ElementNode {
     invariant(false, 'remove: cannot be called on root nodes');
   }
 
-  replace<N: LexicalNode>(node: N): N {
+  replace<N = LexicalNode>(node: N): N {
     invariant(false, 'replace: cannot be called on root nodes');
   }
 
@@ -110,6 +110,6 @@ export function $createRootNode(): RootNode {
   return new RootNode();
 }
 
-export function $isRootNode(node: ?LexicalNode): boolean %checks {
+export function $isRootNode(node: ?LexicalNode): node is RootNode {
   return node instanceof RootNode;
 }

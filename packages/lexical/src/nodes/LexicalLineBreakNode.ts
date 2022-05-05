@@ -58,6 +58,6 @@ export function $createLineBreakNode(): LineBreakNode {
   return new LineBreakNode();
 }
 
-export function $isLineBreakNode(node: ?LexicalNode): boolean %checks {
+export function $isLineBreakNode(node: ?LexicalNode): node is LineBreakNode {
   return node instanceof LineBreakNode;
 }

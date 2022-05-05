@@ -193,7 +193,7 @@ export function toggleTextFormatType(
   return format;
 }
 
-export function $isLeafNode(node: ?LexicalNode): boolean %checks {
+export function $isLeafNode(node: ?LexicalNode): node is LexicalNode {
   return $isTextNode(node) || $isLineBreakNode(node) || $isDecoratorNode(node);
 }
 
@@ -312,7 +312,7 @@ export function $getCompositionKey(): null | NodeKey {
   return editor._compositionKey;
 }
 
-export function $getNodeByKey<N: LexicalNode>(
+export function $getNodeByKey<N = LexicalNode>(
   key: NodeKey,
   _editorState?: EditorState,
 ): N | null {
@@ -321,7 +321,7 @@ export function $getNodeByKey<N: LexicalNode>(
   if (node === undefined) {
     return null;
   }
-  return (node: $FlowFixMe);
+  return node;
 }
 
 export function getNodeFromDOMNode(
@@ -394,10 +394,7 @@ export function $getRoot(): RootNode {
 }
 
 export function internalGetRoot(editorState: EditorState): RootNode {
-  return ((editorState._nodeMap.get(
-    'root',
-    // $FlowFixMe: root is always in our Map
-  ): any): RootNode);
+  return editorState._nodeMap.get('root') as RootNode;
 }
 
 export function $setSelection(
@@ -880,7 +877,7 @@ export function isDelete(keyCode: number): boolean {
   return keyCode === 46;
 }
 
-export function getCachedClassNameArray<Theme: {...}>(
+export function getCachedClassNameArray<Theme>(
   classNamesTheme: Theme,
   classNameThemeType: string,
 ): Array<string> | void {
@@ -925,7 +922,7 @@ export function setMutatedNode(
   }
 }
 
-export function $nodesOfType<T: LexicalNode>(klass: Class<T>): Array<T> {
+export function $nodesOfType<T = LexicalNode>(klass: Class<T>): Array<T> {
   const editorState = getActiveEditorState();
   const readOnly = editorState._readOnly;
   const klassType = klass.getType();

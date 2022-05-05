@@ -152,7 +152,7 @@ export class ElementNode extends LexicalNode {
       resolvedNode
     );
   }
-  getFirstChild<T: LexicalNode>(): null | T {
+  getFirstChild<T = LexicalNode>(): null | T {
     const self = this.getLatest();
     const children = self.__children;
     const childrenLength = children.length;
@@ -161,7 +161,7 @@ export class ElementNode extends LexicalNode {
     }
     return $getNodeByKey<T>(children[0]);
   }
-  getFirstChildOrThrow<T: LexicalNode>(): T {
+  getFirstChildOrThrow<T = LexicalNode>(): T {
     const firstChild = this.getFirstChild<T>();
     if (firstChild === null) {
       invariant(false, 'Expected node %s to have a first child.', this.__key);
@@ -461,6 +461,6 @@ export class ElementNode extends LexicalNode {
   }
 }
 
-export function $isElementNode(node: ?LexicalNode): boolean %checks {
+export function $isElementNode(node: ?LexicalNode): node is ElementNode {
   return node instanceof ElementNode;
 }

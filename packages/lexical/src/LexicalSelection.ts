@@ -54,25 +54,25 @@ import {
 } from './LexicalUtils';
 
 export type TextPointType = {
-  getNode: () => TextNode,
-  is: (PointType) => boolean,
-  isAtNodeEnd: () => boolean,
-  isBefore: (PointType) => boolean,
-  key: NodeKey,
-  offset: number,
-  set: (key: NodeKey, offset: number, type: 'text' | 'element') => void,
-  type: 'text',
+  getNode: () => TextNode;
+  is: (PointType) => boolean;
+  isAtNodeEnd: () => boolean;
+  isBefore: (PointType) => boolean;
+  key: NodeKey;
+  offset: number;
+  set: (key: NodeKey, offset: number, type: 'text' | 'element') => void;
+  type: 'text';
 };
 
 export type ElementPointType = {
-  getNode: () => ElementNode,
-  is: (PointType) => boolean,
-  isAtNodeEnd: () => boolean,
-  isBefore: (PointType) => boolean,
-  key: NodeKey,
-  offset: number,
-  set: (key: NodeKey, offset: number, type: 'text' | 'element') => void,
-  type: 'element',
+  getNode: () => ElementNode;
+  is: (PointType) => boolean;
+  isAtNodeEnd: () => boolean;
+  isBefore: (PointType) => boolean;
+  key: NodeKey;
+  offset: number;
+  set: (key: NodeKey, offset: number, type: 'text' | 'element') => void;
+  type: 'element';
 };
 
 export type PointType = TextPointType | ElementPointType;
@@ -302,15 +302,15 @@ export class NodeSelection implements BaseSelection {
   }
 }
 
-export function $isRangeSelection(x: ?mixed): boolean %checks {
+export function $isRangeSelection(x: ?mixed): node is LexicalNode {
   return x instanceof RangeSelection;
 }
 
 export type GridSelectionShape = {
-  fromX: number,
-  fromY: number,
-  toX: number,
-  toY: number,
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
 };
 
 export class GridSelection implements BaseSelection {
@@ -451,7 +451,7 @@ export class GridSelection implements BaseSelection {
   }
 }
 
-export function $isGridSelection(x: ?mixed): boolean %checks {
+export function $isGridSelection(x: ?mixed): node is LexicalNode {
   return x instanceof GridSelection;
 }
 
@@ -1641,7 +1641,7 @@ export class RangeSelection implements BaseSelection {
         // Delete forward handle case
         ((anchor.type === 'element' &&
           // $FlowFixMe: always an element node
-          anchor.offset === (anchorNode: ElementNode).getChildrenSize()) ||
+          anchor.offset === (anchorNode as ElementNode).getChildrenSize()) ||
           (anchor.type === 'text' &&
             anchor.offset === anchorNode.getTextContentSize()))
       ) {
@@ -1712,7 +1712,7 @@ export class RangeSelection implements BaseSelection {
   }
 }
 
-export function $isNodeSelection(x: ?mixed): boolean %checks {
+export function $isNodeSelection(x: ?mixed): node is LexicalNode {
   return x instanceof NodeSelection;
 }
 
@@ -2283,7 +2283,7 @@ export function $updateElementSelectionOnCreateDeleteNode(
   selection: RangeSelection,
   parentNode: LexicalNode,
   nodeOffset: number,
-  times: number = 1,
+  times = 1,
 ): void {
   const anchor = selection.anchor;
   const focus = selection.focus;

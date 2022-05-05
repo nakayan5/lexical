@@ -13,6 +13,6 @@ import {ElementNode} from './LexicalElementNode';
 
 export class GridRowNode extends ElementNode {}
 
-export function $isGridRowNode(node: ?LexicalNode): boolean %checks {
+export function $isGridRowNode(node: ?LexicalNode): node is GridRowNode {
   return node instanceof GridRowNode;
 }
